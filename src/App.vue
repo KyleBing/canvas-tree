@@ -1,26 +1,45 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <canvas ref="canvas"></canvas>
 </template>
 
 <script>
 import HelloWorld from './components/HelloWorld.vue'
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
+    name: 'App',
+    components: {
+        HelloWorld
+    },
+    data(){
+        return {
+            height: 1000,
+            width: 1000,
+
+            context: null,
+        }
+    },
+    mounted() {
+        onresize = () => {
+            this.height = innerHeight
+            this.width = innerWidth
+        }
+        this.draw()
+
+    },
+    methods: {
+        draw(){
+            let context = this.$refs.canvas.getContext('2d')
+            context.beginPath()
+            context.moveTo(200,0)
+            context.lineTo(200,200)
+            context.arc(200,200, 100,Math.PI * 0,Math.PI * 0.5, false )
+            context.closePath()
+            context.stroke()
+        }
+    }
 }
 </script>
 
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 </style>
